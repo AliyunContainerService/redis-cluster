@@ -1,23 +1,24 @@
-redis-cluster
-===================
+# redis-cluster 
+**Redis cluster with Docker/Fig** 
 
 Using Docker/Fig to setup a redis cluster for testing sentinel failover.
 
 This project is inspired by the project of [https://github.com/mdevilliers/docker-rediscluster][1]
 
 
-# Prerequisite
+## Prerequisite
 
-Install [Docker][4] and [Fig][3] in testing environment.
-Install the redis-cli maybe using 
+Install [Docker][4] and [Fig][3] in testing environment
+
+Install the redis-cli. E.g. with following command in Ubuntu 
 
 ```
 apt-get install redis-server
 ```
 
-# Fig template of Redis cluster
+## Fig template of Redis cluster
 
-The fig tempalte defined the topology of the Redis cluster
+The fig tempalte defines the topology of the Redis cluster
 
 ```
 redismaster:
@@ -40,12 +41,12 @@ redisconfig:
 ```
 
 
-In the topology of cluster, there are following members:
+In the topology of cluster, there are following nodes:
 
 * redismaster: Redis master
 * redisslave:  Redis slave
 * sentinel:    Sentinel instance
-* redisconfig: Container of Redis CLI to config the master/slave
+* redisconfig: Redis CLI to config the master/slave which will exit after configuraion
 
 
 The sentinels are configured with a "mymaster" instance with the following properties -
@@ -61,7 +62,7 @@ The details could be found in sentinel/sentinel.conf
 
 
 
-# Play with it
+## Play with it
 
 
 Start the redis cluster
@@ -130,7 +131,7 @@ SENTINEL_IP=$(docker inspect --format '{{ .NetworkSettings.IPAddress }}' rediscl
 redis-cli -h $SENTINEL_IP -p 26379 info Sentinel
 ```
 
-# References
+## References
 
 [https://github.com/mdevilliers/docker-rediscluster][1]
 
