@@ -1,0 +1,18 @@
+redismaster:
+  image: redis:2.8
+redisslave:
+  image: redis:2.8
+  links:
+    - redismaster
+sentinel:
+  build: sentinel
+  links:
+    - redismaster
+    - redisslave
+    - redisconfig
+redisconfig:
+  build: redis-config
+  links:
+    - redismaster
+    - redisslave
+
