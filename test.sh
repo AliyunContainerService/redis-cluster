@@ -7,19 +7,18 @@ echo Redis Slave: $SLAVE_IP
 echo ------------------------------------------------
 echo Initial status of sentinel
 echo ------------------------------------------------
-redis-cli -h $SENTINEL_IP -p 26379 info Sentinel
+docker-compose run --rm redismaster redis-cli -h $SENTINEL_IP -p 26379 info Sentinel
 
 echo ------------------------------------------------
 echo Stop redis master
 docker pause rediscluster_redismaster_1
 sleep 5
 echo Current infomation of sentinel
-redis-cli -h $SENTINEL_IP -p 26379 info Sentinel
+docker-compose run --rm redismaster redis-cli -h $SENTINEL_IP -p 26379 info Sentinel
 
 echo ------------------------------------------------
 echo Restart Redis master
 docker unpause rediscluster_redismaster_1
 sleep 5
 echo Current infomation of sentinel
-redis-cli -h $SENTINEL_IP -p 26379 info Sentinel
-
+docker-compose run --rm redismaster redis-cli -h $SENTINEL_IP -p 26379 info Sentinel
