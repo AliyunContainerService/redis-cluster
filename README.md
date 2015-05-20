@@ -1,24 +1,25 @@
 # redis-cluster 
-**Redis cluster with Docker/Fig** 
+**Redis cluster with Docker Compose** 
 
-Using Docker/Fig to setup a redis cluster for testing sentinel failover.
+Using Docker Compose to setup a redis cluster for testing sentinel failover.
 
 This project is inspired by the project of [https://github.com/mdevilliers/docker-rediscluster][1]
 
 
 ## Prerequisite
 
-Install [Docker][4] and [Fig][3] in testing environment
+Install [Docker][4] and [Docker Compose][3] in testing environment
 
+Optional: 
 Install the redis-cli. E.g. with following command in Ubuntu 
 
 ```
 apt-get install redis-server
 ```
 
-## Fig template of Redis cluster
+## Docker Compose template of Redis cluster
 
-The fig tempalte defines the topology of the Redis cluster
+The tempalte defines the topology of the Redis cluster
 
 ```
 redismaster:
@@ -40,8 +41,7 @@ redisconfig:
     - redisslave
 ```
 
-
-In the topology of cluster, there are following nodes:
+There are following nodes in the cluster,
 
 * redismaster: Redis master
 * redisslave:  Redis slave
@@ -68,13 +68,13 @@ The details could be found in sentinel/sentinel.conf
 Start the redis cluster
 
 ```
-fig up
+docker-compose up
 ```
 
 Check the status of redis cluster
 
 ```
-fig ps
+docker-compose ps
 ```
 
 The result is 
@@ -91,13 +91,13 @@ Scale out the instance number of sentinel
 
 
 ```
-fig scale sentinel=3
+docker-compose scale sentinel=3
 ```
 
 Check the status of redis cluster
 
 ```
-fig ps
+docker-compose ps
 ```
 
 The result is 
@@ -139,6 +139,11 @@ redis-cli -h $SENTINEL_IP -p 26379 info Sentinel
 
 [1]: https://github.com/mdevilliers/docker-rediscluster
 [2]: https://registry.hub.docker.com/u/joshula/redis-sentinel/
-[3]: http://www.fig.sh
+[3]: https://docs.docker.com/compose/
 [4]: https://www.docker.com
 
+
+## Contributors
+
+* Li Yi (<denverdino@gmail.com>)
+* Ty Alexander (<ty.alexander@gmail.com>)
