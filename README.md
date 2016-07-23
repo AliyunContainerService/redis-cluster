@@ -139,8 +139,12 @@ docker exec rediscluster_sentinel_1 redis-cli -p 26379 SENTINEL get-master-addr-
 [3]: https://docs.docker.com/compose/
 [4]: https://www.docker.com
 
+## License
+
+Apache 2.0 license 
 
 ## Contributors
 
 * Li Yi (<denverdino@gmail.com>)
 * Ty Alexander (<ty.alexander@gmail.com>)
+
