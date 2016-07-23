@@ -1,18 +1,12 @@
-redismaster:
-  image: redis:2.8
-redisslave:
-  image: redis:2.8
+master:
+  image: redis:3
+slave:
+  image: redis:3
+  command: redis-server --slaveof redis-master 6379
   links:
-    - redismaster
+    - master:redis-master
 sentinel:
   build: sentinel
   links:
-    - redismaster
-    - redisslave
-    - redisconfig
-redisconfig:
-  build: redis-config
-  links:
-    - redismaster
-    - redisslave
-
+    - master:redis-master
+    - slave
