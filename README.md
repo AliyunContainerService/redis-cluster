@@ -24,28 +24,37 @@ slave:
     - master:redis-master
 sentinel:
   build: sentinel
+  environment:
+    - SENTINEL_DOWN_AFTER=5000
+    - SENTINEL_FAILOVER=5000    
   links:
     - master:redis-master
     - slave
 ```
 
-There are following nodes in the cluster,
+There are following services in the cluster,
 
 * master: Redis master
 * slave:  Redis slave
-* sentinel:    Sentinel instance
+* sentinel: Redis sentinel
 
 
 The sentinels are configured with a "mymaster" instance with the following properties -
 
 ```
 sentinel monitor mymaster redis-master 6379 2
-sentinel down-after-milliseconds mymaster 1000
+sentinel down-after-milliseconds mymaster 5000
 sentinel parallel-syncs mymaster 1
-sentinel failover-timeout mymaster 1000
+sentinel failover-timeout mymaster 5000
 ```
 
 The details could be found in sentinel/sentinel.conf
+
+The default values of the environment variables for Sentinel are as following
+
+* SENTINEL_QUORUM: 2
+* SENTINEL_DOWN_AFTER: 30000
+* SENTINEL_FAILOVER: 180000
 
 
 

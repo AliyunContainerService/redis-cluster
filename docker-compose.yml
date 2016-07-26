@@ -7,6 +7,9 @@ slave:
     - master:redis-master
 sentinel:
   build: sentinel
+  environment:
+    - SENTINEL_DOWN_AFTER=5000
+    - SENTINEL_FAILOVER=5000    
   links:
     - master:redis-master
     - slave
