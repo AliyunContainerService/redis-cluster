@@ -9,6 +9,11 @@ This project is inspired by the project of [https://github.com/mdevilliers/docke
 
 Install [Docker][4] and [Docker Compose][3] in testing environment
 
+If you are using Windows, please execute the following command before "git clone" to disable changing the line endings of script files into DOS format
+
+```
+git config --global core.autocrlf false
+```
 
 ## Docker Compose template of Redis cluster
 
