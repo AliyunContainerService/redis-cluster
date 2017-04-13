@@ -17,7 +17,7 @@ git config --global core.autocrlf false
 
 ## Docker Compose template of Redis cluster
 
-The tempalte defines the topology of the Redis cluster
+The template defines the topology of the Redis cluster
 
 ```
 master:
@@ -124,7 +124,7 @@ rediscluster_slave_1      docker-entrypoint.sh redis ...   Up      6379/tcp
 rediscluster_slave_2      docker-entrypoint.sh redis ...   Up      6379/tcp            
 ```
 
-Execut the test scripts
+Execute the test scripts
 ```
 ./test.sh
 ```
