@@ -1,8 +1,8 @@
-MASERT_IP=$(docker inspect --format '{{ .NetworkSettings.IPAddress }}' rediscluster_master_1)
+MASTER_IP=$(docker inspect --format '{{ .NetworkSettings.IPAddress }}' rediscluster_master_1)
 SLAVE_IP=$(docker inspect --format '{{ .NetworkSettings.IPAddress }}' rediscluster_slave_1)
 SENTINEL_IP=$(docker inspect --format '{{ .NetworkSettings.IPAddress }}' rediscluster_sentinel_1)
 
-echo Redis master: $MASERT_IP
+echo Redis master: $MASTER_IP
 echo Redis Slave: $SLAVE_IP
 echo ------------------------------------------------
 echo Initial status of sentinel
