@@ -1,15 +1,33 @@
 master:
   image: redis:3
-slave:
+  command: redis-server --requirepass 123@abc
+  ports:
+    - "6381:6379"
+
+slave1:
   image: redis:3
-  command: redis-server --slaveof redis-master 6379
+  command: redis-server --requirepass 123@abc --slaveof redis-master 6379 --masterauth 123@abc
   links:
     - master:redis-master
+  ports:
+    - "6382:6379"
+
+slave2:
+  image: redis:3
+  command: redis-server --requirepass 123@abc --slaveof redis-master 6379 --masterauth 123@abc
+  links:
+    - master:redis-master
+  ports:
+    - "6383:6379"
+
 sentinel:
   build: sentinel
   environment:
     - SENTINEL_DOWN_AFTER=5000
-    - SENTINEL_FAILOVER=5000    
+    - SENTINEL_FAILOVER=5000
   links:
     - master:redis-master
-    - slave
+    - slave1
+    - slave2
+  ports:
+    - "26379:26379"
