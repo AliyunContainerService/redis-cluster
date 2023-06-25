@@ -1,15 +1,25 @@
+version: '3.9'
+
+services:
 master:
-  image: redis:3
+image: redis:latest
+container_name: redis-master
+
 slave:
-  image: redis:3
-  command: redis-server --slaveof redis-master 6379
-  links:
-    - master:redis-master
+image: redis:latest
+container_name: redis-slave
+command: redis-server --slaveof redis-master 6379
+depends_on:
+- master
+
 sentinel:
-  build: sentinel
-  environment:
-    - SENTINEL_DOWN_AFTER=5000
-    - SENTINEL_FAILOVER=5000    
-  links:
-    - master:redis-master
-    - slave
+build:
+context: ./sentinel
+dockerfile: Dockerfile
+container_name: redis-sentinel
+environment:
+- SENTINEL_DOWN_AFTER=5000
+- SENTINEL_FAILOVER=5000
+depends_on:
+- master
+- slave
